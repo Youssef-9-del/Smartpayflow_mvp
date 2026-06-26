@@ -29,13 +29,17 @@ This is an MVP, so a lot is deliberately missing:
 We decided early on that building any of this would be a waste of time before we know if the core idea (the routing logic) actually makes sense. That's basically the whole MVP philosophy from the course.
 
 ## How to run it
+run the following command in the terminal
+
 
 pip install -r requirements.txt
 streamlit run app.py
 
 Opens at http://localhost:8501.
 
-## The math (briefly)
+(If `pip` or `streamlit` aren't recognized, try `pip3 install -r requirements.txt` and `python3 -m streamlit run app.py` instead. This depends on your local Python setup.)
+
+## The math 
 
 Each provider gets scored using:
 
