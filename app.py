@@ -664,7 +664,7 @@ m2.metric("Monthly saving",         f"€{monthly_savings:,.2f}")
 m3.metric("Annual saving",          f"€{annual_savings:,.2f}")
 m4.metric("Recommended route",      best["provider"])
 
-# Pricing recommendation
+# Pricing recommendations
 st.subheader("SmartPay Flow pricing recommendation")
 
 FLAT_FEE        = 99.0
