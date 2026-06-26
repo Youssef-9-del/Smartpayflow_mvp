@@ -1,12 +1,12 @@
 # AI Agent Orchestration — SmartPay Flow
 
-This is how we actually worked with AI on this project. We split it roughly into two phases: one of us worked mostly with Gemini on the architecture and the underlying math, the other worked mostly with Claude on getting the actual Streamlit app built and running. We weren't strict about it — there was overlap — but that was the general division.
+This is how we actually worked with AI on this project. We split it roughly into two phases: one of us worked mostly with Gemini on the architecture and the underlying math, the other worked mostly with Claude on getting the actual Streamlit app built and running. We weren't strict about it, there was overlap,  but that was the general division.
 
 ## Phase 1: Architecture & math (mainly Gemini)
 
-The first version Gemini gave us added cost, settlement time, and approval probability directly together to get a score. That's not mathematically valid — you can't add euros to days to a percentage and get a meaningful number. We pushed back on this directly: the fix was a min-max normalization step, scaling everything to a 0–1 range first, with cost and settlement time flipped (since lower is better for those two, but higher is better for approval and reliability).
+The initial version Gemini generated tried to add cost, settlement time, and approval probability directly together to calculate a score. We immediately pushed back on this, as it’s not mathematically valid to add euros, days, and percentages into a single number. The fix we implemented was a min-max normalization step. This scaled all variables to a 0–1 range first, while flipping the scale for cost and settlement time (since lower is better for those, whereas higher is better for approval and reliability).
 
-The first scoring model also just routed every transaction to whichever provider was cheapest, full stop. That ignored something our jury had specifically raised after our pitch — PSPs give volume discounts, so splitting transactions across multiple providers can actually cost more overall, even if one transaction looks cheaper on a secondary provider. We told Gemini this directly didn't match the feedback we got, and asked for a penalty variable subtracted from the score whenever the engine considers routing away from the merchant's primary PSP.
+Furthermore, the first scoring model blindly routed every transaction to the cheapest provider. This completely ignored a key piece of feedback from our pitch: PSPs offer volume discounts. Splitting transactions across multiple providers can actually increase overall costs, even if an individual transaction seems cheaper elsewhere. We pointed out to Gemini that this didn't align with our business logic, and instructed it to add a penalty variable. This penalty is subtracted from the final score whenever the engine considers routing away from the merchant's primary PSP.
 
 We also had to correct the merchant segmentation more than once. The AI kept defaulting to generic categories like "Webshop" and "SaaS" with made-up weights. We rewrote this to use the actual SME segments and weight reasoning we'd worked out ourselves for the business plan, rather than letting the AI's default categories stand in for our own thinking.
 
@@ -18,18 +18,18 @@ By the end of this phase we had the logic fully worked out: the normalization ap
 
 With the logic already settled, this phase was about turning it into something that actually runs. We gave Claude the requirements directly — normalize with min-max, apply the volume penalty, keep the scoring logic in its own class separate from the UI, no payment data fields — and Claude built the app to that spec in working form, rather than us debugging math errors at this stage. The corrections had already happened in Phase 1; this phase was mostly implementation and then us testing it ourselves locally.
 
-A few specific things we asked for, based on what the jury had raised on the pitch:
+A few specific things we asked for, based on what the teacher had raised on the pitch:
 
-- The jury asked how we'd get inputs without the system being fragile or crash-prone. We didn't want a static CSV upload that could fail in unpredictable ways, so we asked for an "API webhook simulator" instead — a button with a short artificial delay that represents fetching live data, making the separation between the data layer and the decision layer explicit, even though it's simulated for the MVP.
-- The jury also asked what dynamic routing actually adds over a one-off static calculation. The only honest way to answer that is to show it happening, not describe it. So we asked for an interactive slider that lets you drop a provider's uptime live and watch the recommendation change in real time. That ended up being the most convincing part of the demo, because it's not a claim, it's something you can actually watch happen.
+- During the pitch, the teacher asked how we would obtain inputs without making the system fragile or crash-prone. Since we wanted to avoid a static CSV upload that could easily fail, we prompted Claude to build an "API webhook simulator". This is essentially a button with a short artificial delay that represents fetching live data. It makes the architectural separation between the data layer and the decision layer explicit, even if it is just simulated for the MVP.
+- The teacher also asked what dynamic routing actually adds over a one-off static calculation. The only honest way to answer that is to show it happening, not describe it. So we asked for an interactive slider that lets you drop a provider's uptime live and watch the recommendation change in real time. That ended up being the most convincing part of the demo, because it's not a claim, it's something you can actually watch happen.
 - We didn't want a "black box" result that just states a winner with no explanation. SMEs aren't going to trust a recommendation they can't see the reasoning behind, so we asked for the full score breakdown to be shown — every weight, every normalized score, and the final number — with the winning option visually highlighted.
 
 ## Phase 3: Business model logic
 
 A few things were specifically about making this investor-oriented, since that's a requirement of the assignment:
 
-- We wanted more than just "here's the best provider" — we asked for an actual savings calculation, the difference between the worst and best available route, multiplied by monthly transaction volume, so the value is shown in real euros rather than just a ranked list.
-- For the no-cure-no-pay question the jury raised, we asked for simple conditional logic: if 15% of the calculated savings is less than our flat €99/month fee, recommend the percentage-based fee instead, and show that comparison directly to the merchant.
+- We wanted the app to provide more than just a simple "best provider" recommendation. To ensure it was investor-oriented, we asked Claude to build an actual savings calculation. This takes the difference between the worst and best available routes and multiplies it by the monthly transaction volume, showing the tangible value in real euros rather than just outputting a ranked list.
+- For the no-cure-no-pay question the feedback raised, we asked for simple conditional logic: if 15% of the calculated savings is less than our flat €99/month fee, recommend the percentage-based fee instead, and show that comparison directly to the merchant.
 
 ## What we're not fully confident about
 
@@ -37,4 +37,4 @@ The 0.05 penalty value for the volume discount is an estimate, not something cal
 
 ## The most time-consuming part
 
-Surprisingly, none of the above was the hardest part. Getting the app to actually run locally took longer than any of the logic decisions, because of a Python environment mismatch — streamlit was installed under Anaconda's Python, but the terminal kept trying to run the file with a different system Python that didn't have it installed. That's a good example of something AI can write correctly while still not "working" the first time you try it on your own machine.
+Surprisingly, none of the AI prompting was the hardest part. Getting the app to actually run locally took longer than any of the logic decisions because of a Python environment mismatch. Streamlit was installed under Anaconda's Python, but the terminal kept trying to run the file with a different system Python that didn't have the library installed. It’s a perfect example of how AI can write syntactically correct code that still doesn't "work" the first time you try to deploy it on your own machine.
