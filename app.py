@@ -59,7 +59,6 @@ class RoutingEngine:
 
     def __init__(self, routes_df: pd.DataFrame):
         # Store the provider dataframe. We always work on a copy,
-        # never modify the original — defensive programming.
         self.routes = routes_df
 
     def _normalize(self, series: pd.Series, reverse: bool = False) -> pd.Series:
@@ -146,7 +145,7 @@ class RoutingEngine:
         # Formula: base_score = sum_j(W_j * V_norm_ij)
         #
         # Each normalized score is multiplied by how important it is
-        # to THIS specific merchant type, then summed.
+        # to this specific merchant type, then summed.
         #
         # Example for Subscription SaaS (approval weight = 55%):
         #   If Stripe approval_score = 0.75 and Mollie approval_score = 0.95,
@@ -316,18 +315,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Session state explanation (important for the presentation):
-#
-# Streamlit works by re-running the ENTIRE Python script from top to
-# bottom every single time a user interacts with the UI — a button
-# click, a slider move, a dropdown change.
-#
-# Without session state, the provider dataframe would reset to DEFAULT
-# on every interaction. The stress test slider would be useless because
-# changing Adyen's uptime would immediately reset when Streamlit reruns.
-#
-# st.session_state is a persistent dictionary that survives reruns.
-# We store the live provider dataframe here so stress-test edits persist.
+
 
 if "routes_df" not in st.session_state:
     st.session_state.routes_df = pd.DataFrame(DEFAULT_PROVIDERS)
@@ -404,7 +392,7 @@ st.sidebar.divider()
 # RoutingEngine always reads from session state, the recommendation in the
 # main panel updates INSTANTLY with every millimeter the slider moves.
 # No button press. No page refresh. No manual intervention.
-# That is dynamic routing.
+# This is dynamic routing.
 
 st.sidebar.subheader("2. Dynamic Stress Test")
 st.sidebar.caption(
