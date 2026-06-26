@@ -1,8 +1,7 @@
 """
 SmartPay Flow — Dynamic Payment Routing MVP
 ============================================
-Course:  FinTech: Business Models and Application (RSM / Erasmus)
-Purpose: Validate the routing DECISION LAYER for SME payment orchestration.
+Purpose: Validate the routing decision layer for SME payment orchestration.
          This MVP deliberately does NOT implement payment execution —
          a Lean Startup choice to test the core business assumption first.
 
@@ -20,7 +19,7 @@ What this code does NOT yet implement (honest scope boundary):
   - PSD2 compliance layer (needed before production)
   - Historical transaction analytics dashboard
 
-Jury concerns addressed directly in code:
+Feedback concerns addressed directly in code:
   [1] "How do you obtain inputs?"        -> API Webhook Simulator (sidebar)
   [2] "Dynamic vs static value?"         -> Live Stress Test slider
   [3] "Economies of scale discounted?"   -> Volume Penalty in MCDA score
