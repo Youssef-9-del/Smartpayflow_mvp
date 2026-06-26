@@ -12,7 +12,7 @@ What this code implements from the business plan:
   - Dynamic rerouting when a PSP becomes unreliable
   - ROI quantification and no-cure-no-pay pricing model
 
-What this code does NOT yet implement (honest scope boundary):
+What this code does NOT yet implement (Our honest MVP limitations):
   - Live PSP API integrations (synthetic data used instead)
   - Real payment execution or fund movement
   - Merchant authentication / login
