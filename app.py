@@ -163,7 +163,7 @@ class RoutingEngine:
 
         # --- STEP 4: Economies of Scale Penalty -------------------------------
         #
-        # JURY CONCERN: "Don't PSP volume discount plans discourage splitting?"
+        # FEEDBACK CONCERN: "Don't PSP volume discount plans discourage splitting?"
         #
         # Context: PSPs offer volume discounts. A merchant processing 5,000
         # transactions/month with Stripe gets a better rate than one processing
@@ -347,7 +347,7 @@ st.divider()
 # BLOCK H — SIDEBAR: API WEBHOOK SIMULATOR
 # ======================================================================
 #
-# JURY CONCERN [1]: "How do you obtain the inputs?"
+# FEEDBACK CONCERN [1]: "How do you obtain the inputs?"
 #
 # Architecture answer: DECOUPLING.
 # The data ingestion layer is separated from the routing engine.
@@ -387,7 +387,7 @@ st.sidebar.divider()
 # BLOCK I — SIDEBAR: DYNAMIC STRESS TEST
 # ======================================================================
 #
-# JURY CONCERN [2]: "What does dynamic optimization add beyond static?"
+# FEEDBACK CONCERN [2]: "What does dynamic optimization add beyond static?"
 #
 # This is answered empirically, not verbally.
 #
@@ -451,7 +451,7 @@ st.sidebar.divider()
 # BLOCK J — SIDEBAR: ECONOMIES OF SCALE TOGGLE
 # ======================================================================
 #
-# JURY CONCERN [3]: "Don't PSP volume discount plans discourage splitting?"
+# FEEDBACK CONCERN [3]: "Don't PSP volume discount plans discourage splitting?"
 #
 # This toggle lets you demonstrate the penalty live:
 #   Toggle ON  -> secondary PSPs lose 0.05 from their final score
@@ -636,7 +636,7 @@ for (label, col), w in scenarios.items():
 # BLOCK M — ROI CALCULATOR AND PRICING MODEL
 # ======================================================================
 #
-# JURY CONCERN [4]: "No-cure-no-pay to overcome the adoption hurdle?"
+# FEEDBACK CONCERN [4]: "No-cure-no-pay to overcome the adoption hurdle?"
 #
 # The adoption hurdle for SMEs is real: they won't pay a monthly SaaS fee
 # for a tool whose value they can't immediately see.
