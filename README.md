@@ -1,5 +1,7 @@
 # SmartPay Flow
 
+`#FinTech` `#PaymentOrchestration` `#Python` `#Streamlit` `#MCDA`
+
 Intelligent payment routing for SMEs. A decision-support layer that sits on top of existing payment providers (Stripe, Adyen, Mollie, PayPal, SEPA) and recommends which one to use for a given transaction.
 
 We're not building a payment processor. We're building the layer that decides which processor to use. Built by two of us — one focused more on the underlying logic and architecture, the other on getting the actual Streamlit app working. More detail on that split is in AGENTS.md.
@@ -16,15 +18,15 @@ It also lets you simulate a provider going down, so you can see what happens to 
 - Different priority weights depending on merchant type
 - A penalty in the scoring for switching away from your main provider, because PSPs give volume discounts and we don't want to ignore that
 - A "stress test" slider that drops a provider's uptime live so you can watch the recommendation change
-- A simple ROI calculator at the bottom that shows projected savings and suggests either a flat fee or a percentage-of-savings pricing model
+- A simple ROI calculator at the bottom that shows projected savings and suggests either a flat fee or a percentage of savings pricing model
 
 ## What's NOT in here
 
 This is an MVP, so a lot is deliberately missing:
-- No real API connections to PSPs — the provider data (fees, settlement times, etc.) is made up but based on real published pricing
+- No real API connections to PSPs the provider data (fees, settlement times, etc.) is made up but based on real published pricing
 - No actual payment processing happens anywhere
 - No login/authentication
-- No compliance stuff (PSD2 etc.) — would be needed if this became a real product
+- No compliance stuff (PSD2 etc.) would be needed if this became a real product
 
 We decided early on that building any of this would be a waste of time before we know if the core idea (the routing logic) actually makes sense. That's basically the whole MVP philosophy from the course.
 
@@ -45,9 +47,9 @@ Each provider gets scored using:
 
 S = (weight_cost × cost_score) + (weight_speed × speed_score) + (weight_approval × approval_score) + (weight_reliability × reliability_score) − penalty
 
-All the individual scores are normalized between 0 and 1 first, because you can't directly compare a fee in euros to a settlement time in days. The weights change depending on what kind of business you say you are — e.g. a SaaS business cares much more about approval rate than a marketplace does, because a failed subscription payment is worse for them than for a one-off webshop sale.
+All the individual scores are normalized between 0 and 1 first, because you can't directly compare a fee in euros to a settlement time in days. The weights change depending on what kind of business you say you are e.g. a SaaS business cares much more about approval rate than a marketplace does, because a failed subscription payment is worse for them than for a one off webshop sale.
 
-The penalty (currently fixed at 0.05) represents losing a volume discount when you route away from your main provider. We picked 0.05 somewhat arbitrarily — in a real version this would come from actual PSP discount tiers, but we didn't have access to real contract data so we estimated.
+The penalty (currently fixed at 0.05) represents losing a volume discount when you route away from your main provider. We picked 0.05 somewhat arbitrarily in a real version this would come from actual PSP discount tiers, but we didn't have access to real contract data so we estimated.
 
 ## Project files
 
