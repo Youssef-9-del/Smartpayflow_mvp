@@ -12,7 +12,7 @@ You input a transaction amount, your monthly volume, and what kind of business y
 
 It also lets you simulate a provider going down, so you can see what happens to the recommendation in real time. That was a direct response to feedback we got on our pitch: someone asked what dynamic routing actually adds compared to just picking a provider once and sticking with it. This is our answer to that.
 
-## Features
+## The Features of the app
 
 - MCDA routing engine: scores providers on cost, speed, approval rate, and reliability, all normalized to the same scale before combining
 - Merchant profiles: different priority weights per business type (see below)
@@ -20,7 +20,7 @@ It also lets you simulate a provider going down, so you can see what happens to 
 - Live stress-test slider: drop a provider's uptime in real time and watch the recommendation change instantly
 - Full score transparency: every weight, every normalized score, and the final number are shown for every recommendation
 - ROI calculator: projects monthly and annual savings in euros, then recommends either a flat fee or a percentage-of-savings pricing model depending on which is cheaper for that merchant
-## What's NOT in here
+## What is not present in here
 
 This is an MVP, so a lot is deliberately missing:
 - No real API connections to PSPs the provider data (fees, settlement times, etc.) is made up but based on real published pricing
@@ -53,8 +53,8 @@ The penalty (currently fixed at 0.05) represents losing a volume discount when y
 
 ## Project files
 
-- `app.py` — the whole thing, one file (kept it simple for the MVP stage)
-- `requirements.txt` — just streamlit and pandas
+- `app.py` — the code to runn the smart pay flow
+- `requirements.txt` —  streamlit and pandas required to run the app
 - `AGENTS.md` — how we used AI to build this
 
 ## Note on the data
