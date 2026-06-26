@@ -14,12 +14,12 @@ It also lets you simulate a provider going down, so you can see what happens to 
 
 ## Features
 
-- Routing engine based on multi-criteria decision analysis (cost, speed, approval rate, reliability)
-- Different priority weights depending on merchant type
-- A penalty in the scoring for switching away from your main provider, because PSPs give volume discounts and we don't want to ignore that
-- A "stress test" slider that drops a provider's uptime live so you can watch the recommendation change
-- A simple ROI calculator at the bottom that shows projected savings and suggests either a flat fee or a percentage of savings pricing model
-
+- MCDA routing engine: scores providers on cost, speed, approval rate, and reliability, all normalized to the same scale before combining
+- Merchant profiles: different priority weights per business type (see below)
+- Volume discount penalty: deducts from any non-primary provider's score to model the risk of losing PSP volume discounts by splitting transactions
+- Live stress-test slider: drop a provider's uptime in real time and watch the recommendation change instantly
+- Full score transparency: every weight, every normalized score, and the final number are shown for every recommendation
+- ROI calculator: projects monthly and annual savings in euros, then recommends either a flat fee or a percentage-of-savings pricing model depending on which is cheaper for that merchant
 ## What's NOT in here
 
 This is an MVP, so a lot is deliberately missing:
