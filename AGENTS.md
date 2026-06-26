@@ -16,7 +16,7 @@ By the end of this phase we had the logic fully worked out: the normalization ap
 
 ## Phase 2: Building the actual app (mainly Claude)
 
-With the logic already settled, this phase was about turning it into something that actually runs. We gave Claude the requirements directly — normalize with min-max, apply the volume penalty, keep the scoring logic in its own class separate from the UI, no payment data fields — and Claude built the app to that spec in working form, rather than us debugging math errors at this stage. The corrections had already happened in Phase 1; this phase was mostly implementation and then us testing it ourselves locally.
+With the logic already settled, this phase was about turning it into something that actually runs. We gave Claude model OPUS 4.8 the requirements directly — normalize with min-max, apply the volume penalty, keep the scoring logic in its own class separate from the UI, no payment data fields — and Claude built the app to that spec in working form, rather than us debugging math errors at this stage. The corrections had already happened in Phase 1; this phase was mostly implementation and then us testing it ourselves locally.
 
 A few specific things we asked for, based on what the teacher had raised on the pitch:
 
