@@ -35,6 +35,6 @@ A few things were specifically about making this investor-oriented, since that's
 
 The 0.05 penalty value for the volume discount is an estimate, not something calculated from real PSP contract data — we don't have access to actual discount tiers, so this is a placeholder that's defensible but not verified. Same goes for the provider data itself (fees, settlement times, approval rates): it's based loosely on public PSP pricing pages, not pulled from anywhere live, and we didn't cross-check every number in detail.
 
-## The most time-consuming part, honestly
+## The most time-consuming part
 
 Surprisingly, none of the above was the hardest part. Getting the app to actually run locally took longer than any of the logic decisions, because of a Python environment mismatch — streamlit was installed under Anaconda's Python, but the terminal kept trying to run the file with a different system Python that didn't have it installed. That's a good example of something AI can write correctly while still not "working" the first time you try it on your own machine.
